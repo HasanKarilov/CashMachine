@@ -19,7 +19,8 @@ public class CurrencyManipulatorFactory
         {
             return manipulatorHashMap.get(currencyCode);
         }
-        else{
+        else
+        {
             currencyManipulator = new CurrencyManipulator(currencyCode);
             manipulatorHashMap.put(currencyCode, currencyManipulator);
 

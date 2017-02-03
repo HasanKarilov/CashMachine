@@ -23,10 +23,9 @@ public class ConsoleHelper
             if(line.equalsIgnoreCase("exit")){
                 throw new InterruptOperationException();
             }
-
         }
-        catch (IOException e){
-
+        catch (IOException ignored)
+        {
         }
         return line;
     }
@@ -64,7 +63,7 @@ public class ConsoleHelper
                 continue;
             }
             if(nominal <= 0 || quantity <= 0 || nominalAndQuantity.length>2){
-                writeMessage("Invalid data denomination or quantity <= 0");
+                writeMessage("Invalid denomination and quantity data");
                 continue;
             }
             break;
@@ -84,7 +83,6 @@ public class ConsoleHelper
                 break;
             }
             catch (IllegalArgumentException  e){
-
             }
         }
         return operation;

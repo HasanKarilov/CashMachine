@@ -13,9 +13,9 @@ class ExitCommand implements Command
     {
             ConsoleHelper.writeMessage("Do you really want to quit? <y,n>");
             String answer = ConsoleHelper.readString().trim();
-            if ("y".equalsIgnoreCase(answer))
+            if (answer.equalsIgnoreCase("y"))
             {
-                    ConsoleHelper.writeMessage("Goodbye!");
+                ConsoleHelper.writeMessage("Good bye!");
             }
      }
 }

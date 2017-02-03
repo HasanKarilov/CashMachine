@@ -23,7 +23,8 @@ class InfoCommand implements Command
                 }
             }
         }
-        if(!isEmpty){
+        if(!isEmpty)
+        {
             ConsoleHelper.writeMessage("No money available.");
         }
     }
