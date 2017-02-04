@@ -15,6 +15,7 @@ public class CashMachine
         Locale.setDefault(Locale.ENGLISH);
         try
         {
+            CommandExecutor.execute(Operation.LOGIN);
             Operation operation;
             do
             {
