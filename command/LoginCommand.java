@@ -1,15 +1,23 @@
 package com.javarush.test.level26.lesson15.big01.command;
 
+import com.javarush.test.level26.lesson15.big01.CashMachine;
 import com.javarush.test.level26.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
+
+import java.util.Enumeration;
+import java.util.ResourceBundle;
 
 /**
  * Created by hanaria on 2/5/17.
  */
 public class LoginCommand implements Command
 {
-    private final String cardNumber = "123456789012";
-    private final String pinCode = "1234";
+    /*
+     CashMachine.RESOURCE_PATH - путь к файлу verifiedCards - название файла
+     Когда getBundle метод определяет местоположение корректного файла свойств, он возвращает a PropertyResourceBundle объект,
+     содержащий пары ключ/значение от файла свойств.
+     */
+    private ResourceBundle validCreditCards = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "verifiedCards");
     private String card, pin;
 
     @Override
@@ -27,16 +35,16 @@ public class LoginCommand implements Command
             catch (IllegalArgumentException e){
 
             }
-            if(card.length()!=12 && pin.length() !=4)
+            if(validCreditCards.containsKey(card))
             {
-                ConsoleHelper.writeMessage("Invalid card values");
-                continue;
+                if(validCreditCards.getString(card).equals(pin))
+                {
+                    ConsoleHelper.writeMessage("Verification success!");
+                    break;
+                }
             }
-            if(card.equals(cardNumber) && pin.equals(pinCode))
-            {
-                ConsoleHelper.writeMessage("Verification success!");
-                break;
-            }
+
+            ConsoleHelper.writeMessage("Invalid card values");
         }
     }
 }
