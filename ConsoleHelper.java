@@ -5,6 +5,7 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 
 /**
  * Created by hanaria on 2/2/17.
@@ -12,6 +13,8 @@ import java.io.InputStreamReader;
 public class ConsoleHelper
 {
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "common_en");
+
     public static void writeMessage(String message){
         System.out.println(message);
     }
@@ -20,7 +23,7 @@ public class ConsoleHelper
         String line = "";
         try{
             line = reader.readLine();
-            if(line.equalsIgnoreCase("exit")){
+            if(line.equalsIgnoreCase(res.getString("operation.EXIT"))){
                 throw new InterruptOperationException();
             }
         }
@@ -32,21 +35,21 @@ public class ConsoleHelper
 
     public static String askCurrencyCode() throws InterruptOperationException
     {
-        writeMessage("Input currency code: ");
+        writeMessage(res.getString("choose.currency.code"));
         String currencyCode = "";
         while(true){
             currencyCode = readString();
             if(currencyCode.length() == 3){
                 break;
             }
-            else writeMessage("Currency code error!");
+            else writeMessage(res.getString("invalid.data"));
         }
         return currencyCode.toUpperCase();
     }
 
     public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException
     {
-        writeMessage("Input denomination and quantity " + currencyCode);
+        writeMessage(String.format(res.getString("choose.denomination.and.count.format"), currencyCode));
         String str = "";
         String[] nominalAndQuantity;
         int nominal = 0,quantity = 0;
@@ -59,11 +62,11 @@ public class ConsoleHelper
                 quantity = Integer.parseInt(nominalAndQuantity[1]);
             }
             catch (Exception e){
-                writeMessage("Invalid denomination and quantity data");
+                writeMessage(res.getString("invalid.data"));
                 continue;
             }
             if(nominal <= 0 || quantity <= 0 || nominalAndQuantity.length>2){
-                writeMessage("Invalid denomination and quantity data");
+                writeMessage(res.getString("invalid.data"));
                 continue;
             }
             break;
@@ -75,8 +78,9 @@ public class ConsoleHelper
         Integer ordinal;
         Operation operation;
 
-        while (true){
-            writeMessage("Choose operation 1 INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
+        while (true)
+        {
+            writeMessage(String.format("%s 1 %s, 2 - %s, 3 - %s, 4 - %s", res.getString("choose.operation"), res.getString("operation.INFO"), res.getString("operation.DEPOSIT"), res.getString("operation.WITHDRAW"), res.getString("operation.EXIT")));
             try{
                 ordinal = Integer.parseInt(readString());
                 operation = Operation.getAllowableOperationByOrdinal(ordinal);
@@ -86,5 +90,9 @@ public class ConsoleHelper
             }
         }
         return operation;
+    }
+    public static void printExitMessage()
+    {
+        ConsoleHelper.writeMessage(res.getString("the.end"));
     }
 }
