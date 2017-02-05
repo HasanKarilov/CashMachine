@@ -4,7 +4,6 @@ import com.javarush.test.level26.lesson15.big01.CashMachine;
 import com.javarush.test.level26.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
 
-import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 /**

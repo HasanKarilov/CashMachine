@@ -1,21 +1,25 @@
 package com.javarush.test.level26.lesson15.big01.command;
 
+import com.javarush.test.level26.lesson15.big01.CashMachine;
 import com.javarush.test.level26.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
+
+import java.util.ResourceBundle;
 
 /**
  * Created by hanaria on 2/2/17.
  */
 class ExitCommand implements Command
 {
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "exit_en");
     @Override
     public void execute() throws InterruptOperationException
     {
-            ConsoleHelper.writeMessage("Do you really want to quit? <y,n>");
+            ConsoleHelper.writeMessage(res.getString("exit.question.y.n"));
             String answer = ConsoleHelper.readString().trim();
-            if (answer.equalsIgnoreCase("y"))
+            if (answer.equalsIgnoreCase(res.getString("yes")))
             {
-                ConsoleHelper.writeMessage("Good bye!");
+                ConsoleHelper.writeMessage(res.getString("thank.message"));
             }
      }
 }
