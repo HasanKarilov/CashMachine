@@ -80,7 +80,7 @@ public class ConsoleHelper
 
         while (true)
         {
-            writeMessage(String.format("%s 1 %s, 2 - %s, 3 - %s, 4 - %s", res.getString("choose.operation"), res.getString("operation.INFO"), res.getString("operation.DEPOSIT"), res.getString("operation.WITHDRAW"), res.getString("operation.EXIT")));
+            writeMessage("Choose operation 1 INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
             try{
                 ordinal = Integer.parseInt(readString());
                 operation = Operation.getAllowableOperationByOrdinal(ordinal);
@@ -90,9 +90,5 @@ public class ConsoleHelper
             }
         }
         return operation;
-    }
-    public static void printExitMessage()
-    {
-        ConsoleHelper.writeMessage(res.getString("the.end"));
     }
 }

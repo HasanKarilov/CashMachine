@@ -17,18 +17,19 @@ public class LoginCommand implements Command
      содержащий пары ключ/значение от файла свойств.
      */
     private ResourceBundle validCreditCards = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "verifiedCards");
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "login_en");
     private String card, pin;
 
     @Override
     public void execute() throws InterruptOperationException
     {
+        ConsoleHelper.writeMessage(res.getString("before"));
         while (true)
         {
             try
             {
-                ConsoleHelper.writeMessage("Input credit card number");
+                ConsoleHelper.writeMessage(res.getString("specify.data"));
                 card = ConsoleHelper.readString();
-                ConsoleHelper.writeMessage("Input credit card pin code");
                 pin = ConsoleHelper.readString();
             }
             catch (IllegalArgumentException e){
@@ -38,12 +39,23 @@ public class LoginCommand implements Command
             {
                 if(validCreditCards.getString(card).equals(pin))
                 {
-                    ConsoleHelper.writeMessage("Verification success!");
+                    ConsoleHelper.writeMessage(String.format(res.getString("success.format"), card));
                     break;
                 }
+                else
+                {
+                    ConsoleHelper.writeMessage(String.format(res.getString("not.verified.format"), card));
+                    ConsoleHelper.writeMessage(res.getString("try.again.or.exit"));
+                    continue;
+                }
+            }
+            else
+            {
+                ConsoleHelper.writeMessage(String.format(res.getString("not.verified.format"), card));
+                ConsoleHelper.writeMessage(res.getString("try.again.with.details"));
+                continue;
             }
 
-            ConsoleHelper.writeMessage("Invalid card values");
         }
     }
 }

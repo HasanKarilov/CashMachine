@@ -29,9 +29,10 @@ class WithdrawCommand implements Command
             {
                 ConsoleHelper.writeMessage(res.getString("specify.amount"));
                 moneyToTake = Integer.parseInt(ConsoleHelper.readString());
+                ConsoleHelper.writeMessage(String.format(res.getString("success.format"), moneyToTake,currencyCode));
             }
             catch (NumberFormatException e){
-                ConsoleHelper.writeMessage("Money number format exception");
+                ConsoleHelper.writeMessage(res.getString("specify.not.empty.amount"));
                 continue;
             }
             if(moneyToTake <= 0){
